@@ -1,3 +1,3 @@
 # patronus
 
-Instagram cloning project by Django, React, React-Native
+Instagram cloning project by Django, React, React-Native by ilhan
