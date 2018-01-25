@@ -58,6 +58,7 @@ LOCAL_APPS = [
     'patronus.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'patronus.images.apps.ImagesConfig',
+    'patronus.notifications.apps.NotificationsConfig' #notifications app
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

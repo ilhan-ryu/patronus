@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from . import models, serializers
-
+from patronus.notifications import views as notification_views
 
 class ExplorerUsers(APIView):
 
@@ -18,7 +18,7 @@ class ExplorerUsers(APIView):
 class FollowUsers(APIView):
 
     def post(self, request, user_id, format=None):
-        print ("yeah")
+
         user = request.user
         try:
             user_to_follow = models.User.objects.get(id=user_id)
@@ -27,6 +27,8 @@ class FollowUsers(APIView):
 
         user.following.add(user_to_follow)
         user.save()
+
+        notification_views.create_notification(user, user_to_follow, 'follow')
 
         return Response(status=status.HTTP_200_OK)
 
@@ -88,3 +90,17 @@ class UserFollowing(APIView):
         serializer = serializers.ListUserSerializers(user_following, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+class Search(APIView):
+
+    def get(self, request, format=None):
+
+        username = request.query_params.get('username', None)
+
+        if username and len(username) >= 2:
+            users = models.User.objects.filter(username__icontains=username)
+
+            serializer = serializers.ListUserSerializers(users, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
