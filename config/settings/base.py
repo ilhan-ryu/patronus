@@ -48,8 +48,13 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'allauth.socialaccount.providers.facebook',
     'rest_framework', # REST framework
-    'taggit' # Tags for the photos
+    'rest_framework.authtoken',
+    'taggit', # Tags for the photos
+    'taggit_serializer', # tag serializer
+    'rest_auth', # rest auth
+    'rest_auth.registration', #enable registration 
 ]
 
 # Apps specific for this project go here.
@@ -261,8 +266,6 @@ SOCIALACCOUNT_ADAPTER = 'patronus.users.adapters.SocialAccountAdapter'
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
@@ -274,3 +277,15 @@ ADMIN_URL = r'^admin/'
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 TAGGIT_CASE_INSENSITIVE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+REST_USE_JWT = True
+ACCOUNT_LOGOUT_ON_GET = True
