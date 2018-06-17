@@ -14,26 +14,24 @@ const middlewares = [thunk, routerMiddleware(history)];
 
 // 개발환경일 때만 redux-logger 호출
 if (env === "development") {
-    const { logger } = require("redux-logger");
-    middlewares.push(logger);
+  const { logger } = require("redux-logger");
+  middlewares.push(logger);
 }
 
 const reducer = combineReducers({
-    user,
-    routing: routerReducer,
-    i18nState
+  user,
+  routing: routerReducer,
+  i18nState
 });
 
 let store;
 
-if (env === "development"){
-    store = initialState =>
+if (env === "development") {
+  store = initialState =>
     createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)));
 } else {
-    store = initialState =>
-    createStore(reducer, applyMiddleware(...middlewares));
+  store = initialState => createStore(reducer, applyMiddleware(...middlewares));
 }
-
 
 export { history };
 

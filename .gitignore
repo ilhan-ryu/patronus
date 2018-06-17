@@ -307,3 +307,4 @@ mailhog
 patronus/media/
 
 
+.vscode/settings.json

@@ -8,12 +8,12 @@ import { translations } from "translations";
 import App from "components/App";
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-        <I18n translations={translations} initialLang="en" fallbackLang="en">
-            <App />
-        </I18n>
-        </ConnectedRouter>
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <I18n translations={translations} initialLang="en" fallbackLang="en">
+        <App />
+      </I18n>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
 );
